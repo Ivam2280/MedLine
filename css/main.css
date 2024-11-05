@@ -464,7 +464,30 @@ input[type="search"]:focus {
   font-size: 20px;
   font-weight: 500;
   color: #212529e3;
+  position: absolute;
 }
+
+.icon-absolute-doc {
+  position: relative;
+  left: 100px;
+}
+
+.icon-absolute-pat {
+  position: relative;
+  left: 100px;
+}
+
+.icon-absolute-book {
+  position: relative;
+  left: 140px;
+}
+
+.icon-absolute-sess {
+  position: relative;
+  left: 100px;
+}
+
+
 
 .dashboard-icons {
   background-color: rgba(184, 184, 184, 0.247);
