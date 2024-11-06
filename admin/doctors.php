@@ -11,7 +11,26 @@
 </head>
 <body>
 
-<!----k--->
+<?php
+
+
+    session_start();
+
+    if(isset($_SESSION["user"])){
+        if(($_SESSION["user"])=="" or $_SESSION['usertype']!='a'){
+            header("location: ../index.php");
+        }
+
+    }else{
+        header("location: ../index.php");
+    }
+    
+    
+
+    include("../connection.php");
+
+    
+    ?>
 
 <div class="container">
         <div class="menu">
@@ -169,7 +188,25 @@
                         </thead>
                         <tbody>
                         <?php
-                            //<!--k--->
+                            $result= $database->query($sqlmain);
+
+                            if($result->num_rows==0){
+                                echo '<tr>
+                                <td colspan="4">
+                                <br><br><br><br>
+                                <center>
+                                <img src="../img/notfound.svg" width="25%">
+                                
+                                <br>
+                                <p class="heading-main12" style="margin-left: 45px;font-size:20px;color:rgb(49, 49, 49)">We  couldnt find anything related to your keywords !</p>
+                                </center>
+                                <br><br><br><br>
+                                </td>
+                                </tr>';
+                                
+                            }
+                            else{
+                            for ( $x=0; $x<$result->num_rows;$x++){
                             $row=$result->fetch_assoc();
                             $docid=$row["docid"];
                             $name=$row["docname"];
@@ -178,8 +215,32 @@
                             $spcil_res= $database->query("select sname from specialties where id='$spe'");
                             $spcil_array= $spcil_res->fetch_assoc();
                             $spcil_name=$spcil_array["sname"];
-                            //<!--k--->
-                        ?>
+                            echo '<tr>
+                                        <td> &nbsp;'.
+                                        substr($name,0,30)
+                                        .'</td>
+                                        <td>
+                                        '.substr($email,0,20).'
+                                        </td>
+                                        <td>
+                                            '.substr($spcil_name,0,20).'
+                                        </td>
+
+                                        <td>
+                                        <div style="display:flex;justify-content: center;">
+                                        <a href="?action=edit&id='.$docid.'&error=0" class="non-style-link"><button  class="btn-primary-soft btn button-icon btn-edit"  style="padding-left: 40px;padding-top: 12px;padding-bottom: 12px;margin-top: 10px;"><font class="tn-in-text">Edit</font></button></a>
+                                        &nbsp;&nbsp;&nbsp;
+                                        <a href="?action=view&id='.$docid.'" class="non-style-link"><button  class="btn-primary-soft btn button-icon btn-view"  style="padding-left: 40px;padding-top: 12px;padding-bottom: 12px;margin-top: 10px;"><font class="tn-in-text">View</font></button></a>
+                                       &nbsp;&nbsp;&nbsp;
+                                       <a href="?action=drop&id='.$docid.'&name='.$name.'" class="non-style-link"><button  class="btn-primary-soft btn button-icon btn-delete"  style="padding-left: 40px;padding-top: 12px;padding-bottom: 12px;margin-top: 10px;"><font class="tn-in-text">Remove</font></button></a>
+                                        </div>
+                                        </td>
+                                    </tr>';
+                                    
+                                }
+                            }
+                                 
+                            ?>
 
 </tbody>
 
