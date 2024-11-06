@@ -75,7 +75,20 @@
 
                             <input type="search" name="search" class="input-text header-searchbar" placeholder="Search Doctor name or Email" list="doctors">&nbsp;&nbsp;
 
-<!-----k--->
+                            <?php
+                                echo '<datalist id="doctors">';
+                                $list11 = $database->query("select  docname,docemail from  doctor;");
+
+                                for ($y=0;$y<$list11->num_rows;$y++){
+                                    $row00=$list11->fetch_assoc();
+                                    $d=$row00["docname"];
+                                    $c=$row00["docemail"];
+                                    echo "<option value='$d'><br/>";
+                                    echo "<option value='$c'><br/>";
+                                };
+
+                            echo ' </datalist>';
+                            ?>
 
 <input type="Submit" value="Search" class="login-btn btn-primary btn" style="padding-left: 25px;padding-right: 25px;padding-top: 10px;padding-bottom: 10px;">
                         
@@ -116,7 +129,16 @@
                     
                 </tr>
 
-<!----k---->
+                <?php
+                    if($_POST){
+                        $keyword=$_POST["search"];
+                        
+                        $sqlmain= "select * from doctor where docemail='$keyword' or docname='$keyword' or docname like '$keyword%' or docname like '%$keyword' or docname like '%$keyword%'";
+                    } else {
+                        $sqlmain= "select * from doctor order by docid desc";
+
+                    }
+                ?>
 
 <tr>
                    <td colspan="4">
@@ -146,8 +168,18 @@
                                 </tr>
                         </thead>
                         <tbody>
-
-<!-----k-->
+                        <?php
+                            //<!--k--->
+                            $row=$result->fetch_assoc();
+                            $docid=$row["docid"];
+                            $name=$row["docname"];
+                            $email=$row["docemail"];
+                            $spe=$row["specialties"];
+                            $spcil_res= $database->query("select sname from specialties where id='$spe'");
+                            $spcil_array= $spcil_res->fetch_assoc();
+                            $spcil_name=$spcil_array["sname"];
+                            //<!--k--->
+                        ?>
 
 </tbody>
 
