@@ -12,7 +12,26 @@
 </head>
 <body>
 
-  <!---k---->
+<?php
+
+
+session_start();
+
+if(isset($_SESSION["user"])){
+    if(($_SESSION["user"])=="" or $_SESSION['usertype']!='a'){
+        header("location: ../index.php");
+    }
+
+}else{
+    header("location: ../index.php");
+}
+
+
+
+include("../connection.php");
+
+
+?>
 
 <div class="container">
         <div class="menu">
@@ -120,7 +139,44 @@
                         </center>
                     </td>
                     
-<!----k---->
+                    <?php
+                    if($_POST){
+                        $sqlpt1="";
+                        if(!empty($_POST["sheduledate"])){
+                            $sheduledate=$_POST["sheduledate"];
+                            $sqlpt1=" schedule.scheduledate='$sheduledate' ";
+                        }
+
+
+                        $sqlpt2="";
+                        if(!empty($_POST["docid"])){
+                            $docid=$_POST["docid"];
+                            $sqlpt2=" doctor.docid=$docid ";
+                        }
+
+                        $sqlmain= "select schedule.scheduleid,schedule.title,doctor.docname,schedule.scheduledate,schedule.scheduletime,schedule.nop from schedule inner join doctor on schedule.docid=doctor.docid ";
+                        $sqllist=array($sqlpt1,$sqlpt2);
+                        $sqlkeywords=array(" where "," and ");
+                        $key2=0;
+                        foreach($sqllist as $key){
+
+                            if(!empty($key)){
+                                $sqlmain.=$sqlkeywords[$key2].$key;
+                                $key2++;
+                            };
+                        };
+
+                        
+                        
+                        
+                    }else{
+                        $sqlmain= "select schedule.scheduleid,schedule.title,doctor.docname,schedule.scheduledate,schedule.scheduletime,schedule.nop from schedule inner join doctor on schedule.docid=doctor.docid  order by schedule.scheduledate desc";
+
+                    }
+
+
+
+                ?>
 
                 </tr>
                 <tr>
