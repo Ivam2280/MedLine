@@ -487,8 +487,6 @@ input[type="search"]:focus {
   left: 100px;
 }
 
-
-
 .dashboard-icons {
   background-color: rgba(184, 184, 184, 0.247);
   padding-top: 30px;
@@ -496,7 +494,25 @@ input[type="search"]:focus {
   border-radius: 7px;
   margin-left: 40px;
   margin-right: 0px;
+  position: relative;
 }
+
+.dashboard-doc-icon {
+  left: 100px;
+}
+
+.dashboard-pat-icon {
+  left: 100px;
+}
+
+.dashboard-book-icon {
+  left: 140px;
+}
+
+.dashboard-sess-icon {
+  left: 100px;
+}
+
 .dashboard-icons-setting {
   background-color: rgba(184, 184, 184, 0.247);
   padding-top: 30px;
