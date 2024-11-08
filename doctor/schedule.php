@@ -7,10 +7,9 @@
     <link rel="stylesheet" href="../css/main.css">  
     <link rel="stylesheet" href="../css/admin.css">
         
-    <title>Appointments</title>
+    <title>Schedule</title>
 </head>
 <body>
-   
-
+    
 </body>
 </html>
