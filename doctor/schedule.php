@@ -11,7 +11,30 @@
 </head>
 <body>
 
-<!----k------>
+<?php
+
+
+session_start();
+
+if(isset($_SESSION["user"])){
+    if(($_SESSION["user"])=="" or $_SESSION['usertype']!='d'){
+        header("location: ../index.php");
+    }else{
+        $useremail=$_SESSION["user"];
+    }
+
+}else{
+    header("location: ../index.php");
+}
+
+
+
+include("../connection.php");
+$userrow = $database->query("select * from doctor where docemail='$useremail'");
+$userfetch=$userrow->fetch_assoc();
+$userid= $userfetch["docid"];
+$username=$userfetch["docname"];
+?>
 
 <div class="container">
      <div class="menu">
@@ -114,7 +137,19 @@
                     
                 </tr>
 
-<!----k------>
+                <?php
+
+                $sqlmain= "select schedule.scheduleid,schedule.title,doctor.docname,schedule.scheduledate,schedule.scheduletime,schedule.nop from schedule inner join doctor on schedule.docid=doctor.docid where doctor.docid=$userid ";
+    if($_POST){
+        $sqlpt1="";
+        if(!empty($_POST["sheduledate"])){
+            $sheduledate=$_POST["sheduledate"];
+            $sqlmain.=" and schedule.scheduledate='$sheduledate' ";
+        }
+
+    }
+
+?>
 
 </body>
 </html>
