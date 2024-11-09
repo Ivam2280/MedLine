@@ -151,5 +151,39 @@ $username=$userfetch["docname"];
 
 ?>
 
+<tr>
+                   <td colspan="4">
+                       <center>
+                        <div class="abc scroll">
+                        <table width="93%" class="sub-table scrolldown" border="0">
+                        <thead>
+                        <tr>
+                                <th class="table-headin">
+                                    
+                                
+                                Session Title
+                                
+                                </th>
+                                
+                                
+                                <th class="table-headin">
+                                    
+                                    Sheduled Date & Time
+                                    
+                                </th>
+                                <th class="table-headin">
+                                    
+                                Max num that can be booked
+                                    
+                                </th>
+                                
+                                <th class="table-headin">
+                                    
+                                    Events
+                                    
+                                </tr>
+                        </thead>
+                        <tbody>
+
 </body>
 </html>
