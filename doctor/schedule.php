@@ -184,6 +184,98 @@ $username=$userfetch["docname"];
                                 </tr>
                         </thead>
                         <tbody>
+                        <?php
+
+                                
+$result= $database->query($sqlmain);
+
+if($result->num_rows==0){
+    echo '<tr>
+    <td colspan="4">
+    <br><br><br><br>
+    <center>
+    <img src="../img/notfound.svg" width="25%">
+    
+    <br>
+    <p class="heading-main12" style="margin-left: 45px;font-size:20px;color:rgb(49, 49, 49)">We  couldnt find anything related to your keywords !</p>
+    </center>
+    <br><br><br><br>
+    </td>
+    </tr>';
+    
+}
+else {
+    <!----o------>
+}
+
+if($_GET){
+    $id=$_GET["id"];
+    $action=$_GET["action"];
+    if($action=='drop'){
+        $nameget=$_GET["name"];
+        <!----p------>
+
+        
+    }elseif($action=='view'){
+        $sqlmain= "select schedule.scheduleid,schedule.title,doctor.docname,schedule.scheduledate,schedule.scheduletime,schedule.nop from schedule inner join doctor on schedule.docid=doctor.docid  where  schedule.scheduleid=$id";
+            $result= $database->query($sqlmain);
+            $row=$result->fetch_assoc();
+            $docname=$row["docname"];
+            $scheduleid=$row["scheduleid"];
+            $title=$row["title"];
+            $scheduledate=$row["scheduledate"];
+            $scheduletime=$row["scheduletime"];
+            
+           
+            $nop=$row['nop'];
+
+
+            $sqlmain12= "select * from appointment inner join patient on patient.pid=appointment.pid inner join schedule on schedule.scheduleid=appointment.scheduleid where schedule.scheduleid=$id;";
+            $result12= $database->query($sqlmain12);
+            <!----p------>
+
+            
+            $result= $database->query($sqlmain12);
+                
+            if($result->num_rows==0){
+                <!----p------>
+            }
+            else{
+            for ( $x=0; $x<$result->num_rows;$x++){
+                $row=$result->fetch_assoc();
+                $apponum=$row["apponum"];
+                $pid=$row["pid"];
+                $pname=$row["pname"];
+                $ptel=$row["ptel"];
+                <!----p------>
+
+                 
+            }
+        }
+             
+        
+
+       echo '</tbody>
+
+    </table>
+    </div>
+    </center>
+</td> 
+</tr>
+
+</table>
+</div>
+</center>
+<br><br>
+</div>
+</div>
+';  
+}
+}
+
+?>
+</div>
+
 
 </body>
 </html>
