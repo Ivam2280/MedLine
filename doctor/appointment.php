@@ -22,8 +22,8 @@
     <!--p--->
     <?php
         $sqlmain= "select appointment.appoid,schedule.scheduleid,schedule.title,doctor.docname,patient.pname,schedule.scheduledate,schedule.scheduletime,appointment.apponum,appointment.appodate from schedule inner join appointment on schedule.scheduleid=appointment.scheduleid inner join patient on patient.pid=appointment.pid inner join doctor on schedule.docid=doctor.docid  where  doctor.docid=$userid ";
-        if($_POST){
-            if(!empty($_POST["sheduledate"])){
+        if ($_POST) {
+            if (!empty($_POST["sheduledate"])) {
                 $sheduledate=$_POST["sheduledate"];
                 $sqlmain.=" and schedule.scheduledate='$sheduledate' ";
             };
@@ -51,6 +51,7 @@
         $spcil_array= $spcil_res->fetch_assoc();
         $spcil_name=$spcil_array["sname"];
         $tele=$row['doctel'];
+        //<!--k--->
     ?>
 </body>
 </html>
