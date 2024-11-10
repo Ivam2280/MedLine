@@ -189,7 +189,7 @@
                                     </div>
                                 </td>
                                 <td style="width: 25%;">
-                                    <div  class="dashboard-items"  style="padding:20px;margin:auto;width:95%;display: flex;padding-top:26px;padding-bottom:26px;">
+                                    <div  class="dashboard-items dashboard-items-admin-sess">
                                         <div>
                                                 <div class="h1-dashboard">
                                                     <?php    echo $schedulerow ->num_rows  ?>

@@ -449,6 +449,15 @@ input[type="search"]:focus {
   color: var(--primarycolor);
 }
 
+.dashboard-items-admin-sess {
+  padding: 20px;
+  margin: auto;
+  width: 95%;
+  display: flex;
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+
 .h1-dashboard {
   margin: 0;
   padding: 0;
