@@ -449,6 +449,15 @@ input[type="search"]:focus {
   color: var(--primarycolor);
 }
 
+.dashboard-items-admin-sess {
+  padding: 20px;
+  margin: auto;
+  width: 95%;
+  display: flex;
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+
 .h1-dashboard {
   margin: 0;
   padding: 0;
@@ -464,6 +473,27 @@ input[type="search"]:focus {
   font-size: 20px;
   font-weight: 500;
   color: #212529e3;
+  position: absolute;
+}
+
+.icon-absolute-doc {
+  position: relative;
+  left: 100px;
+}
+
+.icon-absolute-pat {
+  position: relative;
+  left: 100px;
+}
+
+.icon-absolute-book {
+  position: relative;
+  left: 140px;
+}
+
+.icon-absolute-sess {
+  position: relative;
+  left: 100px;
 }
 
 .dashboard-icons {
@@ -473,7 +503,25 @@ input[type="search"]:focus {
   border-radius: 7px;
   margin-left: 40px;
   margin-right: 0px;
+  position: relative;
 }
+
+.dashboard-doc-icon {
+  left: 100px;
+}
+
+.dashboard-pat-icon {
+  left: 100px;
+}
+
+.dashboard-book-icon {
+  left: 140px;
+}
+
+.dashboard-sess-icon {
+  left: 100px;
+}
+
 .dashboard-icons-setting {
   background-color: rgba(184, 184, 184, 0.247);
   padding-top: 30px;

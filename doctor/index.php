@@ -177,7 +177,7 @@
                                                                     All Doctors &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                                                 </div>
                                                         </div>
-                                                                <div class="btn-icon-back dashboard-icons" style="background-image: url('../img/icons/doctors-hover.svg');"></div>
+                                                                <div class="btn-icon-back dashboard-icons icon-absolute-doc" style="background-image: url('../img/icons/doctors-hover.svg');"></div>
                                                     </div>
                                                 </td>
                                                 <td style="width: 25%;">
@@ -190,7 +190,7 @@
                                                                     All Patients &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                                                 </div>
                                                         </div>
-                                                                <div class="btn-icon-back dashboard-icons" style="background-image: url('../img/icons/patients-hover.svg');"></div>
+                                                                <div class="btn-icon-back dashboard-icons icon-absolute-pat" style="background-image: url('../img/icons/patients-hover.svg');"></div>
                                                     </div>
                                                 </td>
                                                 </tr>
@@ -205,7 +205,7 @@
                                                                     NewBooking &nbsp;&nbsp;
                                                                 </div>
                                                         </div>
-                                                                <div class="btn-icon-back dashboard-icons" style="margin-left: 0px;background-image: url('../img/icons/book-hover.svg');"></div>
+                                                                <div class="btn-icon-back dashboard-icons icon-absolute-book" style="margin-left: 0px;background-image: url('../img/icons/book-hover.svg');"></div>
                                                     </div>
                                                     
                                                 </td>
@@ -220,7 +220,7 @@
                                                                     Today Sessions
                                                                 </div>
                                                         </div>
-                                                                <div class="btn-icon-back dashboard-icons" style="background-image: url('../img/icons/session-iceblue.svg');"></div>
+                                                                <div class="btn-icon-back dashboard-icons icon-absolute-sess" style="background-image: url('../img/icons/session-iceblue.svg');"></div>
                                                     </div>
                                                 </td>
                                                 

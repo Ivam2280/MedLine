@@ -159,7 +159,7 @@
                                                     Doctors &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                                 </div>
                                         </div>
-                                                <div class="btn-icon-back dashboard-icons" style="background-image: url('../img/icons/doctors-hover.svg');"></div>
+                                                <div class="btn-icon-back dashboard-icons dashboard-doc-icon" style="background-image: url('../img/icons/doctors-hover.svg');"></div>
                                     </div>
                                 </td>
                                 <td style="width: 25%;">
@@ -172,7 +172,7 @@
                                                     Patients &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                                 </div>
                                         </div>
-                                                <div class="btn-icon-back dashboard-icons" style="background-image: url('../img/icons/patients-hover.svg');"></div>
+                                                <div class="btn-icon-back dashboard-icons dashboard-pat-icon" style="background-image: url('../img/icons/patients-hover.svg');"></div>
                                     </div>
                                 </td>
                                 <td style="width: 25%;">
@@ -185,11 +185,11 @@
                                                     NewBooking &nbsp;&nbsp;
                                                 </div>
                                         </div>
-                                                <div class="btn-icon-back dashboard-icons" style="margin-left: 0px;background-image: url('../img/icons/book-hover.svg');"></div>
+                                                <div class="btn-icon-back dashboard-icons dashboard-book-icon" style="margin-left: 0px;background-image: url('../img/icons/book-hover.svg');"></div>
                                     </div>
                                 </td>
                                 <td style="width: 25%;">
-                                    <div  class="dashboard-items"  style="padding:20px;margin:auto;width:95%;display: flex;padding-top:26px;padding-bottom:26px;">
+                                    <div  class="dashboard-items dashboard-items-admin-sess">
                                         <div>
                                                 <div class="h1-dashboard">
                                                     <?php    echo $schedulerow ->num_rows  ?>
@@ -198,7 +198,7 @@
                                                     Today Sessions
                                                 </div>
                                         </div>
-                                                <div class="btn-icon-back dashboard-icons" style="background-image: url('../img/icons/session-iceblue.svg');"></div>
+                                                <div class="btn-icon-back dashboard-icons dashboard-sess-icon" style="background-image: url('../img/icons/session-iceblue.svg');"></div>
                                     </div>
                                 </td>
                                 
