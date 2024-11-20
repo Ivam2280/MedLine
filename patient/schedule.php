@@ -80,7 +80,34 @@
                                         <input type="search" name="search" class="input-text header-searchbar" placeholder="Search Doctor name or Email or Date (YYYY-MM-DD)" list="doctors" value="<?php  echo $insertkey ?>">&nbsp;&nbsp;
 
        
-     <!----k------>
+                                        <?php
+                                            echo '<datalist id="doctors">';
+                                            $list11 = $database->query("select DISTINCT * from  doctor;");
+                                            $list12 = $database->query("select DISTINCT * from  schedule GROUP BY title;");
+                                            
+
+                                            
+
+
+                                            for ($y=0;$y<$list11->num_rows;$y++){
+                                                $row00=$list11->fetch_assoc();
+                                                $d=$row00["docname"];
+                                               
+                                                echo "<option value='$d'><br/>";
+                                               
+                                            };
+
+
+                                            for ($y=0;$y<$list12->num_rows;$y++){
+                                                $row00=$list12->fetch_assoc();
+                                                $d=$row00["title"];
+                                               
+                                                echo "<option value='$d'><br/>";
+                                                                                         };
+
+                                        echo ' </datalist>';
+            ?>
+                                        
 
      <input type="Submit" value="Search" class="login-btn btn-primary btn" style="padding-left: 25px;padding-right: 25px;padding-top: 10px;padding-bottom: 10px;">
                                         </form>
@@ -125,13 +152,9 @@ echo $today;
 <table width="100%" class="sub-table scrolldown" border="0" style="padding: 50px;border:none">
 
 <tbody>
-
-<!----k------>
-
 <?php
 
-<!----k------>
-
+if($result->num_rows==0){
 echo '<tr>
                                     <td colspan="4">
                                     <br><br><br><br>
@@ -145,7 +168,23 @@ echo '<tr>
                                     </td>
                                     </tr>';
 
-<!----k------>
+                                    else{
+                                        for ( $x=0; $x<($result->num_rows);$x++){
+                                            echo "<tr>";
+                                            for($q=0;$q<3;$q++){
+                                                $row=$result->fetch_assoc();
+                                                if (!isset($row)){
+                                                    break;
+                                                };
+                                                $scheduleid=$row["scheduleid"];
+                                                $title=$row["title"];
+                                                $docname=$row["docname"];
+                                                $scheduledate=$row["scheduledate"];
+                                                $scheduletime=$row["scheduletime"];
+        
+                                                if($scheduleid==""){
+                                                    break;
+                                                }
 
 echo '
                                         <td style="width: 25%;">
