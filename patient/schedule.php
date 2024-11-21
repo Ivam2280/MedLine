@@ -11,8 +11,28 @@
     <title>Sessions</title>
 </head>
 <body>
-<!----o------>
+<?php
+    session_start();
 
+    if (isset($_SESSION["user"])) {
+        if (($_SESSION["user"])=="" or $_SESSION['usertype']!='p') {
+            header("location: ../index.php");
+        } else {
+            $useremail=$_SESSION["user"];
+        }
+    } else {
+        header("location: ../index.php");
+    }
+
+    include("../connection.php");
+    $userrow = $database->query("select * from patient where pemail='$useremail'");
+    $userfetch=$userrow->fetch_assoc();
+    $userid= $userfetch["pid"];
+    $username=$userfetch["pname"];
+   
+    date_default_timezone_set('Europe/Kiev');
+    $today = date('Y-m-d');
+?>
 
 <div class="container">
      <div class="menu">
@@ -67,7 +87,24 @@
             </table>
         </div>
 
-        <!----o------>
+        <?php
+
+                $sqlmain= "select * from schedule inner join doctor on schedule.docid=doctor.docid where schedule.scheduledate>='$today'  order by schedule.scheduledate asc";
+                $sqlpt1="";
+                $insertkey="";
+                $q='';
+                $searchtype="All";
+                if ($_POST) {
+                    if (!empty($_POST["search"])) {
+                        $keyword=$_POST["search"];
+                        $sqlmain= "select * from schedule inner join doctor on schedule.docid=doctor.docid where schedule.scheduledate>='$today' and (doctor.docname='$keyword' or doctor.docname like '$keyword%' or doctor.docname like '%$keyword' or doctor.docname like '%$keyword%' or schedule.title='$keyword' or schedule.title like '$keyword%' or schedule.title like '%$keyword' or schedule.title like '%$keyword%' or schedule.scheduledate like '$keyword%' or schedule.scheduledate like '%$keyword' or schedule.scheduledate like '%$keyword%' or schedule.scheduledate='$keyword' )  order by schedule.scheduledate asc";
+                        $insertkey=$keyword;
+                        $searchtype="Search Result : ";
+                        $q='"';
+                    }
+                }
+                $result= $database->query($sqlmain)
+        ?>
 
         <div class="dash-body">
             <table border="0" width="100%" style=" border-spacing: 0;margin:0;padding:0;margin-top:25px; ">
