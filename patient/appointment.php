@@ -232,7 +232,20 @@
                             }
                                  
                             ?>
-    <!---p--->
+  </tbody>
+
+</table>
+</div>
+</center>
+</td> 
+</tr>
+
+
+
+</table>
+</div>
+</div>
+
     <?php
         if ($_GET) {
             $id=$_GET["id"];
