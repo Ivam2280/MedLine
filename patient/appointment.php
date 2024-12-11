@@ -4,46 +4,60 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../css/animations.css">  
     <link rel="stylesheet" href="../css/main.css">  
     <link rel="stylesheet" href="../css/admin.css">
         
     <title>Appointments</title>
+    
 </head>
 <body>
     <?php
-        session_start();
 
-        if(isset($_SESSION["user"])){
-            if(($_SESSION["user"])=="" or $_SESSION['usertype']!='p'){
-                header("location: ../index.php");
-            }else{
-                $useremail=$_SESSION["user"];
-            }
-    
-        }else{
+
+    session_start();
+
+    if(isset($_SESSION["user"])){
+        if(($_SESSION["user"])=="" or $_SESSION['usertype']!='p'){
             header("location: ../index.php");
+        }else{
+            $useremail=$_SESSION["user"];
         }
+
+    }else{
+        header("location: ../index.php");
+    }
+    
+
+    include("../connection.php");
+    $userrow = $database->query("select * from patient where pemail='$useremail'");
+    $userfetch=$userrow->fetch_assoc();
+    $userid= $userfetch["pid"];
+    $username=$userfetch["pname"];
+
+
+
+
+    $sqlmain= "select appointment.appoid,schedule.scheduleid,schedule.title,doctor.docname,patient.pname,schedule.scheduledate,schedule.scheduletime,appointment.apponum,appointment.appodate from schedule inner join appointment on schedule.scheduleid=appointment.scheduleid inner join patient on patient.pid=appointment.pid inner join doctor on schedule.docid=doctor.docid  where  patient.pid=$userid ";
+
+    if($_POST){
         
+
+
+        
+        if(!empty($_POST["sheduledate"])){
+            $sheduledate=$_POST["sheduledate"];
+            $sqlmain.=" and schedule.scheduledate='$sheduledate' ";
+        };
+
     
-        include("../connection.php");
-        $userrow = $database->query("select * from patient where pemail='$useremail'");
-        $userfetch=$userrow->fetch_assoc();
-        $userid= $userfetch["pid"];
-        $username=$userfetch["pname"];
 
-        $sqlmain= "select appointment.appoid,schedule.scheduleid,schedule.title,doctor.docname,patient.pname,schedule.scheduledate,schedule.scheduletime,appointment.apponum,appointment.appodate from schedule inner join appointment on schedule.scheduleid=appointment.scheduleid inner join patient on patient.pid=appointment.pid inner join doctor on schedule.docid=doctor.docid  where  patient.pid=$userid ";
 
-        if($_POST){
-            if(!empty($_POST["sheduledate"])){
-                $sheduledate=$_POST["sheduledate"];
-                $sqlmain.=" and schedule.scheduledate='$sheduledate' ";
-            }
-        }
+    }
 
-        $sqlmain.="order by appointment.appodate  asc";
-        $result= $database->query($sqlmain);
+    $sqlmain.="order by appointment.appodate  asc";
+    $result= $database->query($sqlmain);
     ?>
-    
     <div class="container">
         <div class="menu">
         <table class="menu-container" border="0">
@@ -127,7 +141,6 @@
 
 
                 </tr>
-               
 
                 <tr>
                     <td colspan="4" style="padding-top:10px;width: 100%;" >
@@ -136,7 +149,30 @@
                     </td>
                     
                 </tr>
-              
+                <tr>
+                    <td colspan="4" style="padding-top:0px;width: 100%;" >
+                        <center>
+                        <table class="filter-container" border="0" >
+                        <tr>
+                           <td width="10%">
+
+                           </td> 
+                        <td width="5%" style="text-align: center;">
+                        Date:
+                        </td>
+                        <td width="30%">
+                        <form action="" method="post">
+                            
+                            <input type="date" name="sheduledate" id="date" class="input-text filter-container-items" style="margin: 0;width: 95%;">
+
+                        </td>
+                        
+                    <td width="12%">
+                        <input type="submit"  name="filter" value=" Filter" class=" btn-primary-soft btn button-icon btn-filter"  style="padding: 15px; margin :0;width:100%">
+                        </form>
+                    </td>
+
+                    </tr>
                             </table>
 
                         </center>
@@ -153,8 +189,8 @@
                         <table width="93%" class="sub-table scrolldown" border="0" style="border:none">
                         
                         <tbody>
-
-    <?php
+                        
+                            <?php
 
                                 
                                 
@@ -168,6 +204,8 @@
                                     
                                     <br>
                                     <p class="heading-main12" style="margin-left: 45px;font-size:20px;color:rgb(49, 49, 49)">We  couldnt find anything related to your keywords !</p>
+                                    <a class="non-style-link" href="appointment.php"><button  class="login-btn btn-primary-soft btn"  style="display: flex;justify-content: center;align-items: center;margin-left:20px;">&nbsp; Show all Appointments &nbsp;</font></button>
+                                    </a>
                                     </center>
                                     <br><br><br><br>
                                     </td>
@@ -203,6 +241,7 @@
                                                         <div style="width:100%;">
                                                         <div class="h3-search">
                                                                     Booking Date: '.substr($appodate,0,30).'<br>
+                                                                    Reference Number: OC-000-'.$appoid.'
                                                                 </div>
                                                                 <div class="h1-search">
                                                                     '.substr($title,0,21).'<br>
@@ -227,77 +266,80 @@
     
                                         }
                                         echo "</tr>";
+                           
+                                
                                     
                                 }
                             }
                                  
                             ?>
-  </tbody>
+ 
+                            </tbody>
 
-</table>
-</div>
-</center>
-</td> 
-</tr>
-
-
-
-</table>
-</div>
-</div>
-
+                        </table>
+                        </div>
+                        </center>
+                   </td> 
+                </tr>
+                       
+                        
+                        
+            </table>
+        </div>
+    </div>
     <?php
-        if ($_GET) {
-            $id=$_GET["id"];
-            $action=$_GET["action"];
-            if($action=='booking-added'){
-                
-                echo '
-                <div id="popup1" class="overlay">
-                        <div class="popup">
-                        <center>
-                        <br><br>
-                            <h2>Booking Successfully.</h2>
-                            <a class="close" href="appointment.php">&times;</a>
-                            <div class="content">
-                            Your Appointment number is '.$id.'.<br><br>
-                                
-                            </div>
-                            <div style="display: flex;justify-content: center;">
-                            
-                            <a href="appointment.php" class="non-style-link"><button  class="btn-primary btn"  style="display: flex;justify-content: center;align-items: center;margin:10px;padding:10px;"><font class="tn-in-text">&nbsp;&nbsp;OK&nbsp;&nbsp;</font></button></a>
-                            <br><br><br><br>
-                            </div>
-                        </center>
-                </div>
-                </div>
-                ';
-            }elseif($action=='drop'){
-                $title=$_GET["title"];
-                $docname=$_GET["doc"];
-                
-                echo '
-                <div id="popup1" class="overlay">
-                        <div class="popup">
-                        <center>
-                            <h2>Are you sure?</h2>
-                            <a class="close" href="appointment.php">&times;</a>
-                            <div class="content">
-                                You want to Cancel this Appointment?<br><br>
-                                Session Name: &nbsp;<b>'.substr($title,0,40).'</b><br>
-                                Doctor name&nbsp; : <b>'.substr($docname,0,40).'</b><br><br>
-                                
-                            </div>
-                            <div style="display: flex;justify-content: center;">
-                            <a href="delete-appointment.php?id='.$id.'" class="non-style-link"><button  class="btn-primary btn"  style="display: flex;justify-content: center;align-items: center;margin:10px;padding:10px;"<font class="tn-in-text">&nbsp;Yes&nbsp;</font></button></a>&nbsp;&nbsp;&nbsp;
-                            <a href="appointment.php" class="non-style-link"><button  class="btn-primary btn"  style="display: flex;justify-content: center;align-items: center;margin:10px;padding:10px;"><font class="tn-in-text">&nbsp;&nbsp;No&nbsp;&nbsp;</font></button></a>
     
-                            </div>
-                        </center>
-                </div>
-                </div>
-                '; 
-        } elseif ($action=='view') {
+    if($_GET){
+        $id=$_GET["id"];
+        $action=$_GET["action"];
+        if($action=='booking-added'){
+            
+            echo '
+            <div id="popup1" class="overlay">
+                    <div class="popup">
+                    <center>
+                    <br><br>
+                        <h2>Booking Successfully.</h2>
+                        <a class="close" href="appointment.php">&times;</a>
+                        <div class="content">
+                        Your Appointment number is '.$id.'.<br><br>
+                            
+                        </div>
+                        <div style="display: flex;justify-content: center;">
+                        
+                        <a href="appointment.php" class="non-style-link"><button  class="btn-primary btn"  style="display: flex;justify-content: center;align-items: center;margin:10px;padding:10px;"><font class="tn-in-text">&nbsp;&nbsp;OK&nbsp;&nbsp;</font></button></a>
+                        <br><br><br><br>
+                        </div>
+                    </center>
+            </div>
+            </div>
+            ';
+        }elseif($action=='drop'){
+            $title=$_GET["title"];
+            $docname=$_GET["doc"];
+            
+            echo '
+            <div id="popup1" class="overlay">
+                    <div class="popup">
+                    <center>
+                        <h2>Are you sure?</h2>
+                        <a class="close" href="appointment.php">&times;</a>
+                        <div class="content">
+                            You want to Cancel this Appointment?<br><br>
+                            Session Name: &nbsp;<b>'.substr($title,0,40).'</b><br>
+                            Doctor name&nbsp; : <b>'.substr($docname,0,40).'</b><br><br>
+                            
+                        </div>
+                        <div style="display: flex;justify-content: center;">
+                        <a href="delete-appointment.php?id='.$id.'" class="non-style-link"><button  class="btn-primary btn"  style="display: flex;justify-content: center;align-items: center;margin:10px;padding:10px;"<font class="tn-in-text">&nbsp;Yes&nbsp;</font></button></a>&nbsp;&nbsp;&nbsp;
+                        <a href="appointment.php" class="non-style-link"><button  class="btn-primary btn"  style="display: flex;justify-content: center;align-items: center;margin:10px;padding:10px;"><font class="tn-in-text">&nbsp;&nbsp;No&nbsp;&nbsp;</font></button></a>
+
+                        </div>
+                    </center>
+            </div>
+            </div>
+            '; 
+        }elseif($action=='view'){
             $sqlmain= "select * from doctor where docid='$id'";
             $result= $database->query($sqlmain);
             $row=$result->fetch_assoc();
@@ -316,7 +358,7 @@
                         <h2></h2>
                         <a class="close" href="doctors.php">&times;</a>
                         <div class="content">
-                            MedLine <br>
+                            MedLine<br>
                             
                         </div>
                         <div style="display: flex;justify-content: center;">

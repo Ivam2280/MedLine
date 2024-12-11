@@ -11,29 +11,27 @@
     <title>Schedule</title>
 </head>
 <body>
+    <?php
 
-<?php
 
+    session_start();
 
-session_start();
+    if(isset($_SESSION["user"])){
+        if(($_SESSION["user"])=="" or $_SESSION['usertype']!='a'){
+            header("location: ../index.php");
+        }
 
-if(isset($_SESSION["user"])){
-    if(($_SESSION["user"])=="" or $_SESSION['usertype']!='a'){
+    }else{
         header("location: ../index.php");
     }
+    
+    
 
-}else{
-    header("location: ../index.php");
-}
+    include("../connection.php");
 
-
-
-include("../connection.php");
-
-
-?>
-
-<div class="container">
+    
+    ?>
+    <div class="container">
         <div class="menu">
             <table class="menu-container" border="0">
                 <tr>
@@ -102,6 +100,7 @@ include("../connection.php");
                             <?php 
 
                         date_default_timezone_set('Europe/Kiev');
+
                         $today = date('Y-m-d');
                         echo $today;
 
@@ -133,13 +132,60 @@ include("../connection.php");
                     </td>
                     
                 </tr>
-                
+                <tr>
+                    <td colspan="4" style="padding-top:0px;width: 100%;" >
+                        <center>
+                        <table class="filter-container" border="0" >
+                        <tr>
+                           <td width="10%">
+
+                           </td> 
+                        <td width="5%" style="text-align: center;">
+                        Date:
+                        </td>
+                        <td width="30%">
+                        <form action="" method="post">
+                            
+                            <input type="date" name="sheduledate" id="date" class="input-text filter-container-items" style="margin: 0;width: 95%;">
+
+                        </td>
+                        <td width="5%" style="text-align: center;">
+                        Doctor:
+                        </td>
+                        <td width="30%">
+                        <select name="docid" id="" class="box filter-container-items" style="width:90% ;height: 37px;margin: 0;" >
+                            <option value="" disabled selected hidden>Choose Doctor Name from the list</option><br/>
+                                
+                            <?php 
+                            
+                                $list11 = $database->query("select  * from  doctor order by docname asc;");
+
+                                for ($y=0;$y<$list11->num_rows;$y++){
+                                    $row00=$list11->fetch_assoc();
+                                    $sn=$row00["docname"];
+                                    $id00=$row00["docid"];
+                                    echo "<option value=".$id00.">$sn</option><br/>";
+                                };
+
+
+                                ?>
+
+                        </select>
+                    </td>
+                    <td width="12%">
+                        <input type="submit"  name="filter" value=" Filter" class=" btn-primary-soft btn button-icon btn-filter"  style="padding: 15px; margin :0;width:100%">
+                        </form>
+                    </td>
+
+                    </tr>
                             </table>
 
                         </center>
                     </td>
                     
-                    <?php
+                </tr>
+                
+                <?php
                     if($_POST){
                         $sqlpt1="";
                         if(!empty($_POST["sheduledate"])){
@@ -177,8 +223,7 @@ include("../connection.php");
 
 
                 ?>
-
-                </tr>
+                  
                 <tr>
                    <td colspan="4">
                        <center>
@@ -229,6 +274,8 @@ include("../connection.php");
                                     
                                     <br>
                                     <p class="heading-main12" style="margin-left: 45px;font-size:20px;color:rgb(49, 49, 49)">We  couldnt find anything related to your keywords !</p>
+                                    <a class="non-style-link" href="schedule.php"><button  class="login-btn btn-primary-soft btn"  style="display: flex;justify-content: center;align-items: center;margin-left:20px;">&nbsp; Show all Sessions &nbsp;</font></button>
+                                    </a>
                                     </center>
                                     <br><br><br><br>
                                     </td>
@@ -629,9 +676,6 @@ include("../connection.php");
         
     ?>
     </div>
-
-</body>
-</html>
 
 </body>
 </html>
